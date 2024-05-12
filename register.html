@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+		<link href="styles.css" rel="stylesheet">
+
+		<style>
+			canvas {
+				display: block;
+				width: 70%;
+				margin: auto;
+			}
+		</style>
+
+		<script>
+			window.$ = window.jQuery = require('jquery');
+		</script>
+	</head>
+	<body>
+		<h1>Select a monitor to register</h1>
+		<div style="margin:auto;width:50%;padding-top:50px;">
+			<label for="monitorSelect">Monitor:</label>
+			<select id="monitorSelect">
+			</select>
+			<br>
+			<div style="white-space: nowrap;">
+				<label for="monitorWidth">Width (cm):</label>
+				<input style="width: 50px;" type="number" id="monitorWidth" min=0>
+			</div>
+			<div style="white-space: nowrap;">
+				<input type="checkbox" id="trackDisplay">
+				<label for="trackDisplay">Track This Display?</label>
+			</div>
+			<button type="button" id="monitorRegister">Register</button>
+			<button type="button" id="monitorRegisterImage">Dynamic Register</button>
+			<br><br>
+			<div class="objectSelectBox">
+				<div class="objectSelectContainer">
+					<label for="objectSelect">Object:</label>
+					<select id="objectSelect">
+					</select>
+					<button type="button" id="objectOpen">Open</button>
+				</div>
+				<div class="objectSelectContainer">
+					<label for="docSelect">Document:</label>
+					<select id="docSelect">
+					</select>
+					<button type="button" id="docOpen">Open</button>
+				</div>
+			</div>
+
+			<br>
+
+			<input type="checkbox" id="captureView" name="captureView">
+			<label for="captureView">Enable Capture Preview</label>
+
+			<!-- <h3 style="padding:10px;">Registered Displays</h3>
+			<div id="registeredDisplays" style="width:100%;border-style:solid;border-width:medium;"> -->
+
+			</div>
+		</div>
+
+		<script>
+			const {ipcRenderer, desktopCapturer} = require('electron');
+			const config = require('./config.json');
+			const store = require('./store.js');
+
+			let displayMeta = store.get('displays');
+
+			let streams = {}
+			let capTimer = null;
+
+			let screenDict = {}
+
+			let tracking = {};
+			let ids = {};
+
+			function findDisplayMeta(id)
+			{
+				return displayMeta.findIndex(d => d.id == id);
+			}
+
+			function findDisplayMetaData(id)
+			{
+				const idx = findDisplayMeta(id);
+				if(idx < 0) return null;
+				return displayMeta[idx];
+			}
+
+			function setDisplayMeta(id, width)
+			{
+				let dispIndex = findDisplayMeta(id);
+				let disp = displayMeta[dispIndex];
+				if(!disp) {
+					disp = { id: id, width: width };
+					displayMeta.push(disp)
+				}
+				else {
+					disp.width = width;
+					displayMeta[dispIndex] = disp;
+				}
+				store.set('displays', displayMeta);
+			}
+
+			function updateWidth()
+			{
+				console.log(displayMeta);
+				const selection = document.getElementById('monitorSelect').value;
+				const id = ids[selection];
+				const w = findDisplayMetaData(id)?.width ?? "";
+
+				document.getElementById('monitorWidth').value = w;
+			}
+
+			// let objs = require("./resources/objects/objects.json");
+
+			document.getElementById('monitorSelect').addEventListener('change', e => {
+				document.getElementById('trackDisplay').checked = tracking[e.target.value];
+				updateWidth();
+			});
+
+			document.getElementById('trackDisplay').addEventListener('change', e => {
+				const id = document.getElementById('monitorSelect').value;
+				tracking[id] = e.target.checked;
+				ipcRenderer.send('setDisplayTracked', parseInt(id), e.target.checked);
+			});
+
+			document.getElementById('monitorWidth').addEventListener('change', e => {
+				const w = parseFloat(e.target.value);
+				if(isNaN(w)) return;
+				const selection = document.getElementById('monitorSelect').value;
+				const id = ids[selection];
+
+				setDisplayMeta(id, w);
+			})
+
+			ipcRenderer.invoke('getObjects')
+				.then(objs => {
+					Object.keys(objs).forEach(k => {
+						if(k.startsWith('sbDoc'))
+						{
+							$('#docSelect').append($("<option></option>")
+								.attr("value", k).text(k.replace('sbDoc-','')));
+						}
+						else
+						{
+							$('#objectSelect').append($("<option></option>")
+							.attr("value", k).text(k));
+						}
+					});	
+				});
+
+			// ipcRenderer.send('req', 'monitor');
+			ipcRenderer.send('req', 'displays');
+
+			ipcRenderer.on('monitorCt', (event, data) => {
+				var $el = $('#monitorSelect');
+				$el.empty();
+				console.log("Monitors: " + data);
+				for(var i = 1; i <= data; ++i)
+				{
+					tracking[i] = true;
+					$el.append($("<option></option>")
+						.attr("value", i).text(i));
+				}
+				document.getElementById('trackDisplay').checked = tracking[$el.val()];
+				updateWidth();
+			});
+
+			ipcRenderer.on('displays', (e, displays) => {
+				var $el = $('#monitorSelect');
+				$el.empty();
+				console.log(displays);
+				displays.forEach((v, i) => {
+					const idx = i + 1;
+					tracking[idx] = true;
+					ids[idx] = v.id;
+					$el.append($("<option></option>")
+						.attr("value", idx).text(`${idx} (${v.size.width}x${v.size.height})`));
+				});
+				document.getElementById('trackDisplay').checked = tracking[$el.val()];
+				updateWidth();
+			});
+
+			ipcRenderer.on('monitorCapture', (event, data) => {
+				startCapture(data);
+			});
+
+			ipcRenderer.on('regCapture', async (e, obj) => {
+				console.log('regCapture', obj);
+				await new Promise(r => setTimeout(r, 1000));
+				desktopCapturer.getSources({
+					types: ['screen'],
+					thumbnailSize: {
+						width: 1280,
+						height: 1280
+					}
+				}).then(srcs => srcs.forEach(s => {
+					console.log(s);
+					if(	s.name.toLowerCase() === "entire screen" ||
+						(s.display_id === "" && (screen.name.match(/Screen (\d+)/)[1] - 1) == obj.index) ||
+						s.display_id == obj.id) {
+						const t = s.thumbnail.toDataURL('image/jpeg');
+						console.log(t);
+						ipcRenderer.send('regCapture', t);
+					}
+
+				}));
+			});
+
+			$(document).ready(() => {
+				$('#monitorRegister').on('click', (e) => {
+					console.log("test");
+					e.preventDefault();
+
+					ipcRenderer.send('monitorRegister', $('select#monitorSelect').val(), $('input#monitorWidth').val());
+				});
+
+				$('#objectOpen').on('click', (e) => {
+					e.preventDefault();
+
+					ipcRenderer.send('spawnObject', $('select#objectSelect').val(), $('select#monitorSelect').val());
+				});
+
+				$('#docOpen').on('click', (e) => {
+					e.preventDefault();
+
+					ipcRenderer.send('spawnObject', $('select#docSelect').val(), $('select#monitorSelect').val());
+				});
+			});
+
+			document.getElementById('monitorRegisterImage').addEventListener('click', e => {
+				e.preventDefault();
+
+				ipcRenderer.send('monitorRegister', $('select#monitorSelect').val(), $('input#monitorWidth').val(), true);
+			});
+
+			async function startCapture(obj)
+			{
+				console.log(obj);
+				// console.log(await ipcRenderer.invoke('getDisplay', obj.index));
+				await desktopCapturer.getSources({ types: ['screen'] }).then(async screens => {
+					console.log(screens);
+					for (const screen of screens) {
+						// only one display, don't bother with the directx id since it might fail
+						if(screen.name.toLowerCase() === "entire screen")
+						{
+							screenDict[obj.id] = screen;
+							continue;
+						}
+						// if directx fails, fall back to indices
+						if(screen.display_id === "")
+						{
+							const s = await ipcRenderer.invoke('getDisplay', screen.name.match(/Screen (\d+)/)[1] - 1);
+							screenDict[s.id] = screen;
+							continue;
+						}
+						screenDict[screen.display_id] = screen;
+					}
+				}).catch(e => {
+					console.error(e);
+				});
+			
+				if(!(obj.id in screenDict)) return null;
+				if(obj.id in streams) return null;
+
+				let source = screenDict[obj.id];
+				const stream = await navigator.mediaDevices.getUserMedia({
+					audio: false,
+					video: {
+						mandatory: {
+							chromeMediaSource: 'desktop',
+							chromeMediaSourceId: source.id,
+							minWidth: obj.width,
+							maxWidth: obj.width,
+							minHeight: obj.height,
+							maxHeight: obj.height
+						}
+					}
+				});
+				streams[obj.id] = {
+					"stream": stream,
+					"obj": obj,
+					"img": new ImageCapture(stream.getVideoTracks()[0])
+				};
+
+				if(capTimer) // Restart the interval when a new display is added
+					clearInterval(capTimer);
+
+				sendCaptures();
+				capTimer = setInterval(sendCaptures, config.capture.interval);
+
+				return streams[obj.id];
+			}
+
+			async function getCapture(canvas, imgo)
+			{
+				let img = await imgo.grabFrame();
+				
+				const maxWidth = 1280;
+				const scaleFactor = maxWidth / img.width;
+
+				let newImg = await createImageBitmap(img, {
+					resizeWidth: maxWidth,
+					resizeHeight: img.height * scaleFactor
+				});
+
+				const ratio = img.height / img.width;
+
+				canvas.width = maxWidth;
+				canvas.height = maxWidth * ratio;
+				
+				let ctx = canvas.getContext('bitmaprenderer');
+				if(ctx)
+					ctx.transferFromImageBitmap(newImg);
+				else
+					canvas.getContext('2d').drawImage(newImg, 0, 0, canvas.width, canvas.height);
+
+				return canvas.toDataURL('image/jpeg');
+			}
+
+			async function sendCaptures()
+			{
+				[...document.getElementsByTagName('canvas')].forEach(e => e.remove());
+				const canvas = document.createElement('canvas');
+				if(document.querySelector("#captureView").checked)
+					document.body.append(canvas);
+					
+				for(const id in streams)
+				{
+					let track = streams[id].img.track;
+					try
+					{
+						// console.log(track);
+						/* let img = await streams[id].img.grabFrame();
+				
+						canvas.width = img.width;
+						canvas.height = img.height;
+						
+						let ctx = canvas.getContext('bitmaprenderer');
+						if(ctx)
+							ctx.transferFromImageBitmap(img);
+						else
+							canvas.getContext('2d').drawImage(img, 0, 0);
+
+						let b64 = canvas.toDataURL('image/jpeg'); */
+
+						let b64 = await getCapture(canvas, streams[id].img);
+						console.log({ image: b64 });
+						ipcRenderer.send('monitorCapture', {
+							"id": id,
+							"img": b64
+						});
+					}
+					catch(e)
+					{
+						if(track.muted)
+						{
+							console.log("Restarting capture", e);
+							let obj = streams[id].obj;
+							endCapture(id);
+							startCapture(obj);
+						}
+						else
+						{
+							console.error(e);
+						}
+					}
+				}
+			}
+
+			function endCapture(id)
+			{
+				if(!(id in streams)) return;
+
+				delete streams[id];
+
+				if(capTimer && Object.keys(streams).length < 1)
+				{
+					clearInterval(capTimer);
+					capTimer = null;
+				}
+			}
+
+		</script>
+	</body>
+</html>

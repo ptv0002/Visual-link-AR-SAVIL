@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="../../../../styles.css" rel="stylesheet">
+        <style>
+            body, .docContainer {
+                height: 100%;
+            }
+            .docContainer {
+                overflow-y: auto;
+                padding: 8px;
+                color: white;
+            }
+
+            .highlighted-text {
+                background-color: goldenrod;
+                color: black;
+            }
+
+            .highlighted-text[data-requested="true"] {
+                background-color: cornflowerblue;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="docContainer">
+            <p id="docText"></p>
+        </div>
+
+        <script>
+            const { ipcRenderer } = require('electron');
+            const docs = require('../../../data/document.json');
+            const params = new URLSearchParams(window.location.search);
+            const ourId = params.get('docId');
+            const ourDoc = docs.find(v => v.docId === ourId);
+            const highlights = new Set();
+            const reqHighlights = new Set();
+            const requests = {};
+            const calculatedRelations = {};
+            const outRequests = new Set();
+            const active = new Set();
+            const ids = {};
+
+            // Register text as VisLink entity
+            function registerEntity(txt, idx, elem, generateRequests = true) {
+                // For documents, the strategy is just to connect to any location, name, or organization matching the text
+                // Cannot allow connections to be made to spans because we must create a unique ID for each
+				if (!elem) return;
+
+                // Just create a simple relation set to connect to any location, name, or organization matching this text
+				let relations = [
+                    `sbloc-${txt}`,
+                    `sbname-${txt}`,
+                    `sborg-${txt}`
+                ];
+
+                // Add special handling for NYC and VA
+                let outName = txt;
+                if(txt === "NYC") outName = "New York City";
+                else if(txt === "VA") outName = "Virginia";
+
+                if(outName !== txt) relations.push(`sbloc-${outName}`);                
+
+				const rect = elem.getBoundingClientRect();
+                const visid = `sbdoc-${txt}-${idx}`;
+                const known = active.has(visid);
+				ipcRenderer.send(
+					"sendObjectCustom",
+					known ? "objectUpdate" : "object",
+					visid,
+					{
+						relations: relations,
+					},
+					{
+						x: rect.x,
+						y: rect.y,
+						width: rect.width,
+						height: rect.height,
+					}
+				);
+
+                // Do not generate requests if this element is already being tracked
+                if(known) return;
+
+				if (generateRequests && !outRequests.has(outName)) {
+                    outRequests.add(outName);
+                    const arr = Array.from(outRequests);
+					ipcRenderer.send("p2pEmit", "sbLink", {
+						sender: `doc-${ourId}`,
+						org: arr,
+						name: arr,
+						loc: arr,
+					});
+				}
+
+				active.add(visid);
+                if(!ids[txt]) ids[txt] = [];
+                ids[txt].push(visid);
+			}
+
+            // Unregister text as VisLink entity
+            function unregisterEntity(key, doRelations = true) {
+                if(!ids[key]) return;
+                ids[key].forEach(v => {
+                    ipcRenderer.send("closeObjectCustom", v);
+                    active.delete(v);
+                });
+                delete ids[key];
+
+				if (!doRelations) return;
+
+                // Add special handling for NYC and VA
+                let outName = key;
+                if(key === "NYC") outName = "New York City";
+                else if(key === "VA") outName = "Virginia";
+
+                if(outRequests.has(outName))
+                {
+                    outRequests.delete(outName);
+                    const arr = Array.from(outRequests);
+                    ipcRenderer.send("p2pEmit", "sbLink", {
+                        sender: `doc-${ourId}`,
+                        org: arr,
+                        name: arr,
+                        loc: arr,
+                    }); 
+                }
+			}
+
+            function handleRequest(data) {
+				// Track organizations requested by each sender
+				if (!requests.hasOwnProperty(data.sender))
+					requests[data.sender] = new Set();
+
+				// Add/update all requested data, tracking all that we've seen before
+				const reqList = new Set(requests[data.sender]);
+                const allReqs = new Set([...data.loc, ...data.name, ...data.org]);
+                const add = (t) => {
+                    requests[data.sender].add(t);
+                    reqList.delete(t);
+
+                    // Add requested data to request highlight list
+                    reqHighlights.add(t);    
+                };
+				allReqs.forEach((txt) => {
+                    add(txt);
+					if(txt === "New York City") add("NYC");
+                    if(txt === "Virginia") add("VA");
+				});
+
+				// Remove from reqList all organizations requested by other senders
+				// so they don't get removed if this sender has stopped requesting them
+				Object.keys(requests).forEach((sender) => {
+					if (sender === data.sender) return;
+					requests[sender].forEach((txt) => reqList.delete(txt));
+				});
+
+				// Remaining organizations were previously requested by this sender
+				// but omitted this time, so we should remove them.
+				reqList.forEach((txt) => {
+					requests[data.sender].delete(txt);
+
+                    // Remove unused request from request highlight list
+					reqHighlights.delete(txt);
+				});
+
+                // Update document, adding/removing highlights and entity registrations
+                updateDocument();
+			}
+
+            // Find all highlighted text and register/unregister VisLink entities
+            function registerHighlights()
+            {
+                // Create a new set of all currently registered text
+                // Any text left after looking at all highlights will be unregistered
+                const toRemove = new Set(Object.keys(ids));
+
+                // Get all highlight spans
+                const elems = document.querySelectorAll(".highlighted-text");
+                elems.forEach(elem => {
+                    const txt = elem.getAttribute('data-text');
+                    const idx = elem.getAttribute('data-idx');
+                    const req = elem.getAttribute('data-requested') === 'false';
+
+                    registerEntity(txt, idx, elem, req);
+
+                    // This text is still being used, so remove it from the removal set
+                    toRemove.delete(txt);
+                });
+
+                // Unregister text that is no longer being used
+                toRemove.forEach(txt => {
+                    console.log('remove',txt);
+                    unregisterEntity(txt);
+                });
+
+                ipcRenderer.send('arRefresh');
+            }
+
+            // Highlight all requested text
+            function updateDocument()
+            {
+                let text = ourDoc && ourDoc.docText;
+                if(!text) return;
+
+                // Get union of both highlight sets
+                const allHighlights = new Set([...highlights, ...reqHighlights]);
+
+                // Create regex expression that captures+groups all highlighted text at once, then wrap them in a span
+                if(allHighlights.size > 0) {
+                    const exp = `(${Array.from(allHighlights).join('|')})`;
+                    text = text.replace(new RegExp(exp, 'g'),
+                        (i,_,idx) => `<span class="highlighted-text" data-requested="false" data-text="${i}" data-idx="${ourId}-${idx}" data-vlid="${i}-${ourId}-${idx}">${i}</span>`);
+                }
+                
+                // Update document
+                document.getElementById('docText').innerHTML = text;
+
+                // Add data-requested flag for all text in reqHighlights
+                reqHighlights.forEach(v => {
+                    if(highlights.has(v)) return; // Don't add data-requested for text the user has highlighted
+                    const elems = document.querySelectorAll(`[data-text="${v}"]`);
+                    elems.forEach(elem => elem.setAttribute('data-requested','true'));
+                });
+
+                registerHighlights();
+            }
+
+            // Toggle highlight of a specific text segment
+            function highlightText(text)
+            {
+                if(highlights.has(text)) highlights.delete(text);
+                else highlights.add(text);
+                updateDocument();
+            }
+
+            updateDocument();
+
+            // Right click listener
+            document.oncontextmenu = (e) => {
+                e.preventDefault();
+
+                const selectionText = document.getSelection().toString();
+                if(selectionText) highlightText(selectionText);
+                // If the user clicked on a highlight, remove it.
+                if(e.target.classList.contains('highlighted-text') && (e.target.getAttribute('data-requested') === 'false')) highlightText(e.target.innerText);
+
+                return false;
+            };
+
+            // Add VisLink P2P handling
+            ipcRenderer.send('p2pHook', 'sbLink');
+            ipcRenderer.send('p2pHook', 'sbJoin');
+            ipcRenderer.on('sbLink', (e, data) => {
+                console.log(data);
+                handleRequest(data);
+            });
+            ipcRenderer.on('sbJoin', () => {
+                const arr = Array.from(outRequests);
+                ipcRenderer.send("p2pEmit", "sbLink", {
+                    sender: `doc-${ourId}`,
+                    org: arr,
+                    name: arr,
+                    loc: arr,
+                }); 
+            });
+
+            window.addEventListener('unload', () => {
+                ipcRenderer.send('p2pEmit', 'sbLink', {
+                    sender: `doc-${ourId}`,
+                    loc: [],
+                    name: [],
+                    org: []
+                });
+            });
+
+            ipcRenderer.send('p2pEmit', 'sbJoin', { sender: `doc-${ourId}` });
+        </script>
+    </body>
+</html>

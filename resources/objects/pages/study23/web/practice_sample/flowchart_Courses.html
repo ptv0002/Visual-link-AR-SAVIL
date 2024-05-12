@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../../style.css">
+        <script>
+            // HACK: this sucks
+            var exports = {};
+        </script>
+        <script src="../../dist/data/index.js" type="module"></script>
+        <script src="../../dist/data/practice_sample/flowchart_Courses.js" type="module"></script>
+        <script src="../../dist/util.js" type="module"></script>
+        <script src="../../dist/vislink.js" type="module"></script>
+        <script src="../../dist/resize.js"></script>
+        <script>
+            const OurName = "flowchart_Courses";
+            // Set this to true to reveal linkable elements
+            const DEBUGMODE = false;
+        </script>
+    </head>
+    <body>
+        <div id="data-container" class="fullsize-img">
+            <img id="data-target" />
+        </div>
+        
+        <script type="module">
+            function placeElements(container, target) {
+                window.vlData?.forEach((d, i) => {
+                    placeElement(d, container, target, {
+                        label: DEBUGMODE ? (i ?? "") : "",
+                        onSelect: window.vlHooks.vSelect,
+                        onDeselect: window.vlHooks.vDeselect,
+                        onEnter: window.vlHooks.vEnter,
+                        onLeave: window.vlHooks.vLeavea
+                    });
+                });               
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                initVislink(OurName, "data-id", ["data-letter"], "s23", {
+                    defaultRequests: ["data-letter"]
+                });
+ 
+                window.setDataModule(OurName);
+
+                const container = document.getElementById('data-container');
+                if(!container) {
+                    console.error("No container found, promptly panic or make sure the defined container exists");
+                    return;
+                }
+
+                if(DEBUGMODE) container.classList.add("debug");
+
+                const target = document.getElementById("data-target");
+                if(!target) {
+                    console.error("No target found, promptly panic or make sure the defined target exists");
+                    return;
+                }
+                target.setAttribute("src", window.vlImg);
+                target.addEventListener('load', () => placeElements(container, target));
+
+                window.addEventListener("resize", () => {
+                    document.querySelectorAll(".elem").forEach(e => e.remove());
+                    if(window.timeout) clearTimeout(window.timeout);
+                    window.timeout = setTimeout(() => placeElements(container, target), 100);
+                });
+            });
+        </script>
+        
+    </body>
+</html>

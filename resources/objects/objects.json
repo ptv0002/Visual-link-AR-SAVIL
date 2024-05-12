@@ -1,0 +1,464 @@
+{
+	"carScatterPlot_MPGvsHorsePower": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/cars/ScatterPlot_MPGvsHorsePower.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"carScatterPlot_MPGvsWeight": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/cars/ScatterPlot_MPGvsWeight.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"PS_flowchart_Courses": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/practice_sample/flowchart_Courses.html",
+		"size": {
+			"width": 800,
+			"height": 970
+		},
+		"relations": [
+			"PS_list_AcademicClubs"
+
+		]
+	},
+	"PS_list_AcademicClubs": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/practice_sample/list_AcademicClubs.html",
+		"size": {
+			"width": 1840,
+			"height": 970
+		},
+		"relations": [
+		]
+	},
+	"PS_map_FavoriteSubject": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/practice_sample/map_FavoriteSubject.html",
+		"size": {
+			"width": 1730,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"PS_wiki_NobelPrize": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/practice_sample/wiki_NobelPrize.html",
+		"size": {
+			"width": 1360,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A1_barchart_foodItems": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A1/barchart_foodItems.html",
+		"size": {
+			"width": 660,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A1_boxwhisker_foodItems": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A1/boxwhisker_foodItems.html",
+		"size": {
+			"width": 670,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A1_list_groceries": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A1/list_groceries.html",
+		"size": {
+			"width": 840,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A1_tree_foodRevenue": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A1/tree_foodRevenue.html",
+		"size": {
+			"width": 1280,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A2_tree_chemistryElement": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A2/tree_chemistryElement.html",
+		"size": {
+			"width": 770,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A2_diagram_circuit": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A2/diagram_circuit.html",
+		"size": {
+			"width": 1420,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A2_tree_foodChem": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A2/tree_foodChem.html",
+		"size": {
+			"width": 1417,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A2_map_US": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A2/map_US.html",
+		"size": {
+			"width": 1450,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A3_barchart_sportMusic": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A3/barchart_sportMusic.html",
+		"size": {
+			"width": 725,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A3_diagram_musicBubble": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A3/diagram_musicBubble.html",
+		"size": {
+			"width": 1060,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A3_piechart_TopGenre": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A3/piechart_TopGenre.html",
+		"size": {
+			"width": 1080,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"A3_wiki_Swift": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/A3/wiki_Swift.html",
+		"size": {
+			"width": 1230,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"B1_funnelchart_carBrand": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B1/funnelchart_carBrand.html",
+		"size": {
+			"width": 1460,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"B1_wordcloud_clothes": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B1/wordcloud_clothes.html",
+		"size": {
+			"width": 1910,
+			"height": 930
+		},
+		"relations": [
+
+		]
+	},
+	"B1_diagram_techCom": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B1/diagram_techCom.html",
+		"size": {
+			"width": 1090,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"B1_scatterplot_beautyBrand": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B1/scatterplot_beautyBrand.html",
+		"size": {
+			"width": 1600,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"B2_piechart_CarBrand": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B2/piechart_CarBrand.html",
+		"size": {
+			"width": 1400,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"B2_barchart_Clothesbrands": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B2/barchart_Clothesbrands.html",
+		"size": {
+			"width": 1180,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"B2_list_CountryAndCap": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B2/list_CountryAndCap.html",
+		"size": {
+			"width": 1400,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"B2_wiki_olympic": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B2/wiki_olympic.html",
+		"size": {
+			"width": 1500,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"B3_wiki_Peafowl": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B3/wiki_Peafowl.html",
+		"size": {
+			"width": 1400,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"B3_treemap_Flavors": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B3/treemap_Flavors.html",
+		"size": {
+			"width": 1400,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"B3_img_parkingLot": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B3/img_parkingLot.html",
+		"size": {
+			"width": 1730,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"B3_boxwhisker_foodItems": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/B3/boxwhisker_foodItems.html",
+		"size": {
+			"width": 735,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"C1_hierarchy_SpokenLang": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C1/hierarchy_SpokenLang.html",
+		"size": {
+			"width": 970,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"C1_wordcloud_languages": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C1/wordcloud_languages.html",
+		"size": {
+			"width": 1910,
+			"height": 930
+		},
+		"relations": [
+
+		]
+	},
+	"C1_hierarchy_ProgLang": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C1/hierarchy_ProgLang.html",
+		"size": {
+			"width": 1270,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"C1_radarchart_signLang": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C1/radarchart_signLang.html",
+		"size": {
+			"width": 1450,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"C2_scatterplot_NFL": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C2/scatterplot_NFL.html",
+		"size": {
+			"width": 1430,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"C2_barchart_Album": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C2/barchart_Album.html",
+		"size": {
+			"width": 1130,
+			"height": 930
+		},
+		"relations": [
+
+		]
+	},
+	"C2_scatterplot_CompBrand": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C2/scatterplot_CompBrand.html",
+		"size": {
+			"width": 1380,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"C2_diagram_TwitchAtlas": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C2/diagram_TwitchAtlas.html",
+		"size": {
+			"width": 1730,
+			"height": 920
+		},
+		"relations": [
+
+		]
+	},
+	"C3_linechart_mortgage": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C3/linechart_mortgage.html",
+		"size": {
+			"width": 1350,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"C3_areachart_PluralityBirth": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C3/areachart_PluralityBirth.html",
+		"size": {
+			"width": 1520,
+			"height": 930
+		},
+		"relations": [
+
+		]
+	},
+	"C3_radarchart_musicGenre": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C3/radarchart_musicGenre.html",
+		"size": {
+			"width": 1465,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	},
+	"C3_wiki_Fibonacci": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/C3/wiki_Fibonacci.html",
+		"size": {
+			"width": 1355,
+			"height": 970
+		},
+		"relations": [
+
+		]
+	}
+}

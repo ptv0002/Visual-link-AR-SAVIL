@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+		<link href="styles.css" rel="stylesheet">
+
+		<style>
+			#ipSelect {
+				position: relative;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		</style>
+		
+		<script>
+			window.$ = window.jQuery = require('jquery');
+			console.log(require('electron').remote.process.argv);
+		</script>
+	</head>
+	<body>
+		<h1>Scan in app to connect (or just wait for local app)</h1>
+		<select id="ipSelect">
+		</select>
+		<div class="imgbox" id="qrCode">
+			<img class="center-fit" id="qrCodeImage" alt="Retrieving..." />
+		</div>
+
+		<script>
+			const {ipcRenderer} = require('electron');
+			let qrCodes = [];
+
+			// ipcRenderer.on('interfaces', (event, data) => {
+			// 	var $el = $('#interfaces');
+			// 	$el.empty();
+			// 	console.log(data);
+			// 	$.each(data, (k,v) => {
+			// 		console.log(v);
+			// 		$el.append($("<option></option>")
+			// 			.attr("value", v).text(v));
+			// 	});
+			// })
+
+			function setQrCodes(qrs)
+			{
+				qrCodes = qrs;
+				
+				const e = document.getElementById("ipSelect");
+				// Clear select choices
+				while(e.firstChild)
+					e.removeChild(e.firstChild);
+				
+				// Add select elements
+				qrCodes.forEach((qr, idx) => {
+					const o = document.createElement('option');
+					o.setAttribute('value', idx);
+					o.innerText = qr.name;
+					e.appendChild(o);
+				});
+
+				selectQrCode(0);
+			}
+
+			function selectQrCode(idx)
+			{
+				if(idx >= qrCodes.length) return;
+
+				const o = qrCodes[idx];
+				console.log(o);
+				ipcRenderer.send('selectIp', o.info.ip);
+				if($('#qrCodeImage').length)
+					$('#qrCodeImage').attr("src", o.url);
+				else
+					$('#qrCode').append('<img class="center-fit" id="qrCodeImage" src="'+o.url+'"/>');
+			}
+
+			const s = document.getElementById("ipSelect");
+			s.addEventListener('change', event => {
+				selectQrCode(event.target.value);
+			});
+
+			ipcRenderer.on('qrcode', (event, data) => {
+				console.log(data);
+				if($('#qrCodeImage').length)
+					$('#qrCodeImage').attr("src", data);
+				else
+					$('#qrCode').append('<img class="center-fit" id="qrCodeImage" src="'+data+'"/>');
+			});
+
+			ipcRenderer.on('qrcodes', (event, qrs) => {
+				console.log(qrs);
+				setQrCodes(qrs);
+			});
+
+			document.getElementById('qrCode').addEventListener('click', e => {
+				e.preventDefault();
+				console.log('e');
+				ipcRenderer.send('navigate', '/register.html');
+			});
+		</script>
+	</body>
+</html>

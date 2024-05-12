@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+		<link href="styles.css" rel="stylesheet">
+		
+		<script>
+			window.$ = window.jQuery = require('jquery');
+		</script>
+	</head>
+	<body>
+		<div class="imgbox" id="imgbox"></div>
+
+		<script>
+			const electron = require('electron');
+			const { ipcRenderer, remote } = electron;
+			
+			let objs = require("./resources/objects/objects.json");
+
+			// remote.getCurrentWindow().webContents.on('did-finish-load', (e) => {
+			// 	var body = $(document);
+			// 	console.log('AHHH');
+			// 	remote.getCurrentWindow().setContentSize(body.width(), body.height(), true);
+			// });
+
+			function handleImage(obj)
+			{
+				if($('#objImg').length)
+					$('#objImg').attr("src", obj.src);
+				else
+					$('#imgbox').append('<img class="center-fit" id="objImg" src="'+obj.src+'"/>');
+			}
+
+			(async () => {
+				const objs = await ipcRenderer.invoke('getObjects');
+				ipcRenderer.on('object', (e, d) => {
+					let obj = objs[d];
+					if(obj.size)
+						remote.getCurrentWindow().setContentSize(obj.size.width, obj.size.height, false);
+	
+					switch(obj.type)
+					{
+						case "image":
+							handleImage(obj);
+							break;
+						case "html":
+							window.location.replace(obj.src);
+							break;
+						default:
+							break;
+					}
+				});
+			})();
+		</script>
+	</body>
+</html>

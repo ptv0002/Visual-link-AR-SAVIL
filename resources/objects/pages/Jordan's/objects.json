@@ -1,0 +1,266 @@
+{
+	"study23_diagram_circuit": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/diagram_circuit.html",
+		"size": {
+			"width": 762,
+			"height": 520
+		},
+		"relations": [
+
+		]
+	},
+	"study23_map_US": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/map_US.html",
+		"size": {
+			"width": 768,
+			"height": 538
+		},
+		"relations": [
+
+		]
+	},
+	"study23_tree_chemistryElement": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/tree_chemistryElement.html",
+		"size": {
+			"width": 685,
+			"height": 862
+		},
+		"relations": [
+
+		]
+	},
+	"study23_tree_foodChem": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/tree_foodChem.html",
+		"size": {
+			"width": 850,
+			"height": 576
+		},
+		"relations": [
+
+		]
+	},
+	
+	"teapot": {
+		"type": "image",
+		"src": "./resources/objects/teapot.jpg",
+		"relations": [
+			"tea"
+		]
+	},
+	"tea": {
+		"type": "image",
+		"src": "./resources/objects/tea.png",
+		"relations": [
+
+		]
+	},
+	"teabag": {
+		"type": "image",
+		"src": "./resources/objects/teabag.jpg",
+		"relations": [
+			"teapot"
+		]
+	},
+	"coke": {
+		"type": "image",
+		"src": "./resources/objects/coke.png",
+		"relations": [
+			"pepsi"
+		]
+	},
+	"pepsi": {
+		"type": "image",
+		"src": "./resources/objects/pepsi.png",
+		"relations": [
+			
+		]
+	},
+	"monitor": {
+		"type": "image",
+		"src": "./resources/objects/monitor.jpg",
+		"relations": [
+			"DISP2@192.168.1.64",
+			"DISP2@127.0.0.1"
+		]
+	},
+	"barChart": {
+		"type": "html",
+		"src": "./resources/objects/pages/barChart/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"barChartAlways": {
+		"type": "html",
+		"src": "./resources/objects/pages/barChartAlways/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"usMap": {
+		"type": "html",
+		"src": "./resources/objects/pages/usMap/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"usMapDisplay": {
+		"type": "html",
+		"src": "./resources/objects/pages/usMapDisplay/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"remoteDemo": {
+		"type": "html",
+		"src": "./resources/objects/pages/remoteDemo/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"levelsTest": {
+		"type": "html",
+		"src": "./resources/objects/pages/levelsTest/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"sightBi_Map": {
+		"type": "html",
+		"src": "./resources/objects/pages/sightBi_Map/index.html",
+		"size": {
+			"width": 800,
+			"height": 625
+		},
+		"relations": [
+
+		]
+	},
+	"sightBi_Graph": {
+		"type": "html",
+		"src": "./resources/objects/pages/sightBi_Graph/index.html",
+		"size": {
+			"width": 832,
+			"height": 800
+		},
+		"relations": [
+
+		]
+	},
+	"sightBi_Bar": {
+		"type": "html",
+		"src": "./resources/objects/pages/sightBi_Bar/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"carBoxPlot_MPGvMaker": {
+		"type": "html",
+		"src": "./resources/objects/pages/cars/BoxPlot_MPGvsMaker.html",
+		"size": {
+			"width": 1200,
+			"height": 800
+		},
+		"relations": [
+
+		]
+	},
+	"carHistogram_Displacement": {
+		"type": "html",
+		"src": "./resources/objects/pages/cars/Histogram_Displacement.html",
+		"size": {
+			"width": 1080,
+			"height": 650
+		},
+		"relations": [
+
+		]
+	},
+	"carHistogram_NumofCylinders": {
+		"type": "html",
+		"src": "./resources/objects/pages/cars/HistogramNumofCylinders.html",
+		"size": {
+			"width": 800,
+			"height": 900
+		},
+		"relations": [
+
+		]
+	},
+	"carScatterPlot_MPGvsAccel": {
+		"type": "html",
+		"src": "./resources/objects/pages/cars/ScatterPlot_MPGvsAccel.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"carScatterPlot_MPGvsHorsePower": {
+		"type": "html",
+		"src": "./resources/objects/pages/cars/ScatterPlot_MPGvsHorsePower.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"carScatterPlot_MPGvsWeight": {
+		"type": "html",
+		"src": "./resources/objects/pages/cars/ScatterPlot_MPGvsWeight.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"carMap_Country": {
+		"type": "html",
+		"src": "./resources/objects/pages/cars/Map_Country.html",
+		"size": {
+			"width": 1200,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	}
+}

@@ -1,0 +1,30 @@
+.tooltip {
+    opacity: 0;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    position: absolute;
+    padding: 10px;
+}
+
+.selected {
+    border: 1px solid black;
+    stroke: black;
+}
+
+.vl-active:not(.selected) {
+    border: 1px dotted gray;
+    stroke: gray;
+}
+
+.vl-active {
+    z-index: -999;
+}
+
+circle:hover {
+    r: 10;
+}
+
+rect:hover:not(.box) {
+    fill: #7cc4aa !important;
+}

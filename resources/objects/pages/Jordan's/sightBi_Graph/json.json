@@ -1,0 +1,566 @@
+{
+    "nodes": [
+        {
+            "name": "Abdelhak Kherbane",
+            "id": 1,
+            "connection": "Carl Louis"
+        },
+        {
+            "name": "Abdul Ramazi",
+            "id": 2,
+            "connection": "Hani al Hallak,Mukhtar Galab,Bagwant Dhaliwal,Sahim Albakri,Muhammed bin Harazi"
+        },
+        {
+            "name": "Abdul al Hada",
+            "id": 3,
+            "connection": "Abu al Masri"
+        },
+        {
+            "name": "Abdulla Ramzi",
+            "id": 4,
+            "connection": ""
+        },
+        {
+            "name": "Abu al Masri",
+            "id": 5,
+            "connection": "Abdul al Hada,Hans Pakes"
+        },
+        {
+            "name": "Abul Hassan Salman",
+            "id": 6,
+            "connection": "Jamal Kalifa"
+        },
+        {
+            "name": "Ahmed Yassin",
+            "id": 7,
+            "connection": "Vincent Cortez,Arnaldo Gueterrez,Ben Hassine"
+        },
+        {
+            "name": "Alwan",
+            "id": 8,
+            "connection": "Mark Davis,Hamid Alwan"
+        },
+        {
+            "name": "Arnaldo Gueterrez",
+            "id": 9,
+            "connection": "Vincent Cortez,Ben Hassine,Ahmed Yassin"
+        },
+        {
+            "name": "Bagwant Dhaliwal",
+            "id": 10,
+            "connection": "Hans Pakes,Clark Webster,Mukhtar Galab,Abdul Ramazi,Sahim Albakri,Muhammed bin Harazi"
+        },
+        {
+            "name": "Ben Hassine",
+            "id": 11,
+            "connection": "Vincent Cortez,Arnaldo Gueterrez,Ahmed Yassin"
+        },
+        {
+            "name": "Carl Louis",
+            "id": 12,
+            "connection": "Abdelhak Kherbane"
+        },
+        {
+            "name": "Clark Adams",
+            "id": 13,
+            "connection": ""
+        },
+        {
+            "name": "Clark Webster",
+            "id": 14,
+            "connection": "Hans Pakes,Bagwant Dhaliwal,Mukhtar Galab,Faysal Goba,Ziad al Shibh"
+        },
+        {
+            "name": "Faysal Goba",
+            "id": 15,
+            "connection": "Mukhtar Galab,Yasein Mosed,Clark Webster,Ziad al Shibh"
+        },
+        {
+            "name": "Hamid Alwan",
+            "id": 16,
+            "connection": "Mark Davis,Alwan"
+        },
+        {
+            "name": "Hani al Hallak",
+            "id": 17,
+            "connection": "Abdul Ramazi"
+        },
+        {
+            "name": "Hans Pakes",
+            "id": 18,
+            "connection": "Bagwant Dhaliwal,Clark Webster,Mukhtar Galab,Abu al Masri"
+        },
+        {
+            "name": "Jamal Kalifa",
+            "id": 19,
+            "connection": "Ralph Goode,Abul Hassan Salman"
+        },
+        {
+            "name": "Jamil Musawi",
+            "id": 20,
+            "connection": ""
+        },
+        {
+            "name": "Jelte Nijboer",
+            "id": 21,
+            "connection": "Saeed Khallad,al Ahdal,Tawfiq al Adel,bin Attash"
+        },
+        {
+            "name": "Joseph Nizar",
+            "id": 22,
+            "connection": "Omar Clark"
+        },
+        {
+            "name": "Karm Bensaid",
+            "id": 23,
+            "connection": ""
+        },
+        {
+            "name": "Khalfan Maulid",
+            "id": 24,
+            "connection": "Masood Yaser,Muhammad Shamzi,Vincent Lozario"
+        },
+        {
+            "name": "Mark Davis",
+            "id": 25,
+            "connection": "Hamid Alwan,Alwan,Shiela Watson,Steven Clark"
+        },
+        {
+            "name": "Masood Yaser",
+            "id": 26,
+            "connection": "Muhammad Shamzi,Vincent Lozario,Khalfan Maulid"
+        },
+        {
+            "name": "Muhammad Shamzi",
+            "id": 27,
+            "connection": "Masood Yaser,Vincent Lozario,Khalfan Maulid"
+        },
+        {
+            "name": "Muhammed bin Harazi",
+            "id": 28,
+            "connection": "Bagwant Dhaliwal,Abdul Ramazi,Sahim Albakri"
+        },
+        {
+            "name": "Mukhtar Galab",
+            "id": 29,
+            "connection": "Hans Pakes,Bagwant Dhaliwal,Clark Webster,Faysal Goba,Yasein Mosed,Abdul Ramazi"
+        },
+        {
+            "name": "Omar Bakri Qatada",
+            "id": 30,
+            "connection": "Qatada,Richard Reid"
+        },
+        {
+            "name": "Omar Clark",
+            "id": 31,
+            "connection": "Joseph Nizar"
+        },
+        {
+            "name": "Qatada",
+            "id": 32,
+            "connection": "Omar Bakri Qatada,Richard Reid"
+        },
+        {
+            "name": "Ralph Goode",
+            "id": 33,
+            "connection": "Jamal Kalifa"
+        },
+        {
+            "name": "Richard Reid",
+            "id": 34,
+            "connection": "Omar Bakri Qatada,Qatada"
+        },
+        {
+            "name": "Riduan bin Attash",
+            "id": 35,
+            "connection": "Tawfiq al Adel,Saeed Khallad,Saleh al Ahdal"
+        },
+        {
+            "name": "Saeed Khaliad",
+            "id": 36,
+            "connection": "Tawfiq al Adel"
+        },
+        {
+            "name": "Saeed Khallad",
+            "id": 37,
+            "connection": "Tawfiq al Adel,Riduan bin Attash,Saleh al Ahdal,Jelte Nijboer,al Ahdal,bin Attash"
+        },
+        {
+            "name": "Sahim Albakri",
+            "id": 38,
+            "connection": "Bagwant Dhaliwal,Abdul Ramazi,Muhammed bin Harazi"
+        },
+        {
+            "name": "Saleh al Ahdal",
+            "id": 39,
+            "connection": "Tawfiq al Adel,Saeed Khallad,Riduan bin Attash"
+        },
+        {
+            "name": "Shiela Watson",
+            "id": 40,
+            "connection": "Mark Davis,Steven Clark"
+        },
+        {
+            "name": "Steven Clark",
+            "id": 41,
+            "connection": "Mark Davis,Shiela Watson"
+        },
+        {
+            "name": "Tawfiq al Adel",
+            "id": 42,
+            "connection": "Saeed Khallad,Riduan bin Attash,Saleh al Ahdal,Jelte Nijboer,al Ahdal,bin Attash,Saeed Khaliad"
+        },
+        {
+            "name": "Vincent Cortez",
+            "id": 43,
+            "connection": "Arnaldo Gueterrez,Ben Hassine,Ahmed Yassin"
+        },
+        {
+            "name": "Vincent Lozario",
+            "id": 44,
+            "connection": "Masood Yaser,Muhammad Shamzi,Khalfan Maulid"
+        },
+        {
+            "name": "Wallace Wilson",
+            "id": 45,
+            "connection": ""
+        },
+        {
+            "name": "Yasein Mosed",
+            "id": 46,
+            "connection": "Faysal Goba,Mukhtar Galab"
+        },
+        {
+            "name": "Ziad al Shibh",
+            "id": 47,
+            "connection": "Clark Webster,Faysal Goba"
+        },
+        {
+            "name": "al Ahdal",
+            "id": 48,
+            "connection": "Saeed Khallad,Jelte Nijboer,Tawfiq al Adel,bin Attash"
+        },
+        {
+            "name": "bin Attash",
+            "id": 49,
+            "connection": "Saeed Khallad,Jelte Nijboer,al Ahdal,Tawfiq al Adel"
+        }
+    ],
+    "links": [
+        {
+            "source": 1,
+            "target": 12,
+            "type": 1
+        },
+        {
+            "source": 2,
+            "target": 17,
+            "type": 1
+        },
+        {
+            "source": 2,
+            "target": 29,
+            "type": 1
+        },
+        {
+            "source": 2,
+            "target": 10,
+            "type": 1
+        },
+        {
+            "source": 2,
+            "target": 38,
+            "type": 1
+        },
+        {
+            "source": 2,
+            "target": 28,
+            "type": 1
+        },
+        {
+            "source": 3,
+            "target": 5,
+            "type": 1
+        },
+        {
+            "source": 5,
+            "target": 18,
+            "type": 1
+        },
+        {
+            "source": 6,
+            "target": 19,
+            "type": 1
+        },
+        {
+            "source": 7,
+            "target": 43,
+            "type": 1
+        },
+        {
+            "source": 7,
+            "target": 9,
+            "type": 1
+        },
+        {
+            "source": 7,
+            "target": 11,
+            "type": 1
+        },
+        {
+            "source": 8,
+            "target": 25,
+            "type": 1
+        },
+        {
+            "source": 8,
+            "target": 16,
+            "type": 1
+        },
+        {
+            "source": 9,
+            "target": 43,
+            "type": 1
+        },
+        {
+            "source": 9,
+            "target": 11,
+            "type": 1
+        },
+        {
+            "source": 10,
+            "target": 18,
+            "type": 1
+        },
+        {
+            "source": 10,
+            "target": 14,
+            "type": 1
+        },
+        {
+            "source": 10,
+            "target": 29,
+            "type": 1
+        },
+        {
+            "source": 10,
+            "target": 38,
+            "type": 1
+        },
+        {
+            "source": 10,
+            "target": 28,
+            "type": 1
+        },
+        {
+            "source": 11,
+            "target": 43,
+            "type": 1
+        },
+        {
+            "source": 14,
+            "target": 18,
+            "type": 1
+        },
+        {
+            "source": 14,
+            "target": 29,
+            "type": 1
+        },
+        {
+            "source": 14,
+            "target": 15,
+            "type": 1
+        },
+        {
+            "source": 14,
+            "target": 47,
+            "type": 1
+        },
+        {
+            "source": 15,
+            "target": 29,
+            "type": 1
+        },
+        {
+            "source": 15,
+            "target": 46,
+            "type": 1
+        },
+        {
+            "source": 15,
+            "target": 47,
+            "type": 1
+        },
+        {
+            "source": 16,
+            "target": 25,
+            "type": 1
+        },
+        {
+            "source": 18,
+            "target": 29,
+            "type": 1
+        },
+        {
+            "source": 19,
+            "target": 33,
+            "type": 1
+        },
+        {
+            "source": 21,
+            "target": 37,
+            "type": 1
+        },
+        {
+            "source": 21,
+            "target": 48,
+            "type": 1
+        },
+        {
+            "source": 21,
+            "target": 42,
+            "type": 1
+        },
+        {
+            "source": 21,
+            "target": 49,
+            "type": 1
+        },
+        {
+            "source": 22,
+            "target": 31,
+            "type": 1
+        },
+        {
+            "source": 24,
+            "target": 26,
+            "type": 1
+        },
+        {
+            "source": 24,
+            "target": 27,
+            "type": 1
+        },
+        {
+            "source": 24,
+            "target": 44,
+            "type": 1
+        },
+        {
+            "source": 25,
+            "target": 40,
+            "type": 1
+        },
+        {
+            "source": 25,
+            "target": 41,
+            "type": 1
+        },
+        {
+            "source": 26,
+            "target": 27,
+            "type": 1
+        },
+        {
+            "source": 26,
+            "target": 44,
+            "type": 1
+        },
+        {
+            "source": 27,
+            "target": 44,
+            "type": 1
+        },
+        {
+            "source": 28,
+            "target": 38,
+            "type": 1
+        },
+        {
+            "source": 29,
+            "target": 46,
+            "type": 1
+        },
+        {
+            "source": 30,
+            "target": 32,
+            "type": 1
+        },
+        {
+            "source": 30,
+            "target": 34,
+            "type": 1
+        },
+        {
+            "source": 32,
+            "target": 34,
+            "type": 1
+        },
+        {
+            "source": 35,
+            "target": 42,
+            "type": 1
+        },
+        {
+            "source": 35,
+            "target": 37,
+            "type": 1
+        },
+        {
+            "source": 35,
+            "target": 39,
+            "type": 1
+        },
+        {
+            "source": 36,
+            "target": 42,
+            "type": 1
+        },
+        {
+            "source": 37,
+            "target": 42,
+            "type": 1
+        },
+        {
+            "source": 37,
+            "target": 39,
+            "type": 1
+        },
+        {
+            "source": 37,
+            "target": 48,
+            "type": 1
+        },
+        {
+            "source": 37,
+            "target": 49,
+            "type": 1
+        },
+        {
+            "source": 39,
+            "target": 42,
+            "type": 1
+        },
+        {
+            "source": 40,
+            "target": 41,
+            "type": 1
+        },
+        {
+            "source": 42,
+            "target": 48,
+            "type": 1
+        },
+        {
+            "source": 42,
+            "target": 49,
+            "type": 1
+        },
+        {
+            "source": 48,
+            "target": 49,
+            "type": 1
+        }
+    ]
+}

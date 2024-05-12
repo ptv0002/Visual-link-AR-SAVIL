@@ -1,0 +1,16 @@
+{
+	"socket": {
+		"port": 4567,
+		"id": "default",
+		"objUpdateTimeout": 100
+	},
+
+	"p2p": {
+		"__makeServer": false,
+		"port": 5678
+	},
+
+	"capture": {
+		"interval": 3000
+	}
+}

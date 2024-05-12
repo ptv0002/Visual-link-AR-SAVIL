@@ -1,0 +1,140 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+	<link rel="stylesheet" href="./style.css">
+	<style>
+		circle.selected {
+			fill: #20f135 !important;
+		}
+
+		circle.vl-active:not(.selected) {
+			fill: #d2f120 !important;
+		}
+	</style>
+</head>
+
+<body>
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="./utility.js"></script>
+<script src="./vislink.js"></script>
+
+<!-- Create a div where the graph will take place -->
+
+<header>Vis 8</header>
+
+<div id="my_dataviz8"></div>
+
+<script>
+
+	// set the dimensions and margins of the graph
+	var margin = {top: 10, right: 30, bottom: 40, left: 50},
+		width = 520 - margin.left - margin.right,
+		height = 520 - margin.top - margin.bottom;
+
+	var scale = 1.5;
+	var dotScale = 1.5;
+	
+	function drawChart()
+    	{
+	    	let oldsvg = document.querySelector("svg");
+    		if(oldsvg) oldsvg.parentNode.removeChild(oldsvg);
+    		// append the svg object to the body of the page
+		var Svg = d3.select("#my_dataviz8")
+	    		.append("svg")
+	    		.attr("width", (scale*width) + margin.left + margin.right)
+	    		.attr("height", (scale*height) + margin.top + margin.bottom)
+	    		.append("g")
+	    		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    	
+		const tooltip = initTooltip("#my_dataviz8");
+
+		//Read the data
+		d3.csv("cars2.csv", function(data) {
+	
+		// Add X axis
+		var x = d3.scaleLinear()
+			.domain(d3.extent(data, function(d) { return Number(d.weight); }))
+			.range([ 0, width*scale ])
+		Svg.append("g")
+			.attr("transform", "translate(0," + (height*scale+5) + ")")
+			.call(d3.axisBottom(x).tickSize(-height*1.3*scale).ticks(10))
+			.select(".domain").remove()
+		
+		// Add Y axis
+		var y = d3.scaleLinear()
+			.domain(d3.extent(data, function(d) { return Number(d.mpg); }))
+			.range([ height*scale, 0])
+			.nice()
+		Svg.append("g")
+			.call(d3.axisLeft(y).tickSize(-width*1.3).ticks(7))
+			.select(".domain").remove()
+
+		// Customization
+		Svg.selectAll(".tick line").attr("stroke", "#EBEBEB")
+	
+		// Add X axis label:
+		Svg.append("text")
+			.attr("text-anchor", "end")
+			.attr("x", width*scale)
+			.attr("y", height*scale + margin.top + 20)
+			.text("Weight");
+		
+		// Y axis label:
+		Svg.append("text")
+			.attr("text-anchor", "end")
+			.attr("transform", "rotate(-90)")
+			.attr("y", -margin.left+20)
+			.attr("x", -margin.top)
+			.text("MPG")
+		
+		// Color scale: give me a specie name, I return a color
+		var color = d3.scaleOrdinal()
+			.domain(["setosa", "versicolor", "virginica" ])
+			.range([ "#402D54", "#D18975", "#8FD175"])
+
+		// Add dots
+		Svg.append('g')
+			.selectAll("dot")
+			.data(data)
+			.enter()
+			.append("circle")
+			.attr("cx", function (d) { return x(d.weight); } )
+			.attr("cy", function (d) { return y(d.mpg); } )
+			.attr("car-maker", d => d.maker.replace(/\s+/g, "_"))
+			.attr("car-name", d => d.name.replace(/\s+/g, "_"))
+			.attr("car-country", d => d.country)
+			.attr("r", 5*dotScale)
+			.attr('fill-opacity', 0.8)
+			.style("fill", function (d) { return "#F12054"/*color(d.Species)*/ } )
+			.each(selectable(vSelect, vDeselect, vEnter, vLeave))
+			.each(function (d) { tooltip(d3.select(this), d => d.name); });
+		})
+	}
+
+	function changeScale()
+	{
+		var x = document.getElementById("frmScale");
+		scale = x.elements[0].value;
+		dotScale = x.elements[1].value;
+		console.log("button pressed");
+		drawChart();
+	}
+	
+	drawChart();
+	initVislink("carsMpgWeight", "car-name", ["car-name"]);
+
+</script>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,237 @@
+{
+	"PS_flowchart_Courses": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/practice_sample/flowchart_Courses.html",
+		"size": {
+			"width": 800,
+			"height": 970
+		}
+	},
+	"PS_list_AcademicClubs": {
+		"type": "html",
+		"src": "./resources/objects/pages/study23/web/practice_sample/list_AcademicClubs.html",
+		"size": {
+			"width": 1840,
+			"height": 970
+		}
+	},
+	"teapot": {
+		"type": "image",
+		"src": "./resources/objects/pages/Jordan's/teapot.jpg",
+		"relations": [
+			"tea"
+		]
+	},
+	"tea": {
+		"type": "image",
+		"src": "./resources/objects/pages/Jordan's/tea.png",
+		"relations": [
+
+		]
+	},
+	"teabag": {
+		"type": "image",
+		"src": "./resources/objects/pages/Jordan's/teabag.jpg",
+		"relations": [
+			"teapot"
+		]
+	},
+	"coke": {
+		"type": "image",
+		"src": "./resources/objects/pages/Jordan's/coke.png",
+		"relations": [
+			"pepsi"
+		]
+	},
+	"pepsi": {
+		"type": "image",
+		"src": "./resources/objects/pages/Jordan's/pepsi.png",
+		"relations": [
+			
+		]
+	},
+	"monitor": {
+		"type": "image",
+		"src": "./resources/objects/pages/Jordan's/monitor.jpg",
+		"relations": [
+			"DISP2@192.168.1.64",
+			"DISP2@127.0.0.1"
+		]
+	},
+	"barChart": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/barChart/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"barChartAlways": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/barChartAlways/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"usMap": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/usMap/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"usMapDisplay": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/usMapDisplay/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"remoteDemo": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/remoteDemo/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"levelsTest": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/levelsTest/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"sightBi_Map": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/sightBi_Map/index.html",
+		"size": {
+			"width": 800,
+			"height": 625
+		},
+		"relations": [
+
+		]
+	},
+	"sightBi_Graph": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/sightBi_Graph/index.html",
+		"size": {
+			"width": 832,
+			"height": 800
+		},
+		"relations": [
+
+		]
+	},
+	"sightBi_Bar": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/sightBi_Bar/index.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"carBoxPlot_MPGvMaker": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/cars/BoxPlot_MPGvsMaker.html",
+		"size": {
+			"width": 1200,
+			"height": 800
+		},
+		"relations": [
+
+		]
+	},
+	"carHistogram_Displacement": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/cars/Histogram_Displacement.html",
+		"size": {
+			"width": 1080,
+			"height": 650
+		},
+		"relations": [
+
+		]
+	},
+	"carHistogram_NumofCylinders": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/cars/HistogramNumofCylinders.html",
+		"size": {
+			"width": 800,
+			"height": 900
+		},
+		"relations": [
+
+		]
+	},
+	"carScatterPlot_MPGvsAccel": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/cars/ScatterPlot_MPGvsAccel.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"carScatterPlot_MPGvsHorsePower": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/cars/ScatterPlot_MPGvsHorsePower.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"carScatterPlot_MPGvsWeight": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/cars/ScatterPlot_MPGvsWeight.html",
+		"size": {
+			"width": 900,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	},
+	"carMap_Country": {
+		"type": "html",
+		"src": "./resources/objects/pages/Jordan's/cars/Map_Country.html",
+		"size": {
+			"width": 1200,
+			"height": 600
+		},
+		"relations": [
+
+		]
+	}
+}

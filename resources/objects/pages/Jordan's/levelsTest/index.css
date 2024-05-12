@@ -1,0 +1,29 @@
+* {
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+    text-align: center;
+    color: white;
+	background-color: #121212;
+	height: 90%;
+}
+
+h1 {
+    padding-top: 16px;
+    padding-bottom: 8px;
+}
+
+#mouseRegion {
+    background-color: lightgray;
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    border: 1px solid black;
+}
+
+#mouseRegion:hover {
+    background-color: white;
+}

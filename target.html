@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+		<link href="styles.css" rel="stylesheet">
+
+		<script>
+			window.$ = window.jQuery = require('jquery');
+			console.log(process.argv);
+		</script>
+	</head>
+	<body>
+		<div id="target">
+			<img id="targetImage"/>
+		</div>
+
+		<script>
+			const electron = require('electron');
+			const {ipcRenderer} = electron;
+			const winMan = electron.remote.require('electron-window-manager');
+			const targets = require('./resources/targets/targets.json');
+
+			// Determine current display's aspect ratio
+			var win = electron.remote.getCurrentWindow();
+			var bounds = win.getBounds();
+			var display = electron.remote.screen.getDisplayMatching(bounds);
+			var aspect = display.size.width / display.size.height;
+			console.log(aspect);
+
+			// Determine closest image target for current display
+			var minCloseness = 100;
+			var closest = undefined;
+			targets.forEach(i =>
+			{
+				var closeness = Math.pow(aspect - i.ratio, 2);
+				if(closeness < minCloseness)
+				{
+					minCloseness = closeness;
+					closest = i;
+				}
+			});
+			console.log(closest, minCloseness);
+
+			const dispid = parseInt(process.argv.find((_,i,o) => o[i-1] === "--monitorindex"));
+			const imgId = (dispid - 1) % closest.num
+			console.log(dispid);
+			$('#targetImage').attr('src', closest.image.replace("##", "%23" + (isNaN(imgId) ? 0 : imgId)));
+
+			window.addEventListener('keydown', (e) => {
+				if(e.code == "Escape")
+					winMan.destroy('target');
+			});
+		</script>
+	</body>
+</html>

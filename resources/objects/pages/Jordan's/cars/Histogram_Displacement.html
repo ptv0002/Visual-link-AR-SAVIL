@@ -1,0 +1,141 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+	<link rel="stylesheet" href="./style.css">
+	<style>
+		body {
+			max-height: 100vh;
+		}
+
+		.selected {
+			fill: #5ece66 !important;
+		}
+
+		.vl-active:not(.selected) {
+			fill: #cfdd61 !important;
+		}
+	</style>
+</head>
+
+<body>
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="./utility.js"></script>
+<script src="./vislink.js"></script>
+
+<!-- Create a div where the graph will take place -->
+
+<header>Vis 6</header>
+
+<div id="my_dataviz6"></div>
+
+<script>
+
+	// set the dimensions and margins of the graph
+	var margin = {top: 10, right: 30, bottom: 40, left: 50},
+		width = 1040 - margin.left - margin.right,
+		height = 520 - margin.top - margin.bottom;
+
+	var scale = 1;
+	var dotScale = 0.9;
+	
+	function drawChart()
+    	{
+    		let oldsvg = document.querySelector("svg");
+    		if(oldsvg) oldsvg.parentNode.removeChild(oldsvg);
+    		
+
+		// append the svg object to the body of the page
+		var svg = d3.select("#my_dataviz6")
+			.append("svg")
+			.attr("width", width*scale + margin.left + margin.right)
+			.attr("height", height*scale + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		// get the data
+		d3.csv("cars2.csv", function(data) {
+
+			// X axis: scale and draw:
+			var x = d3.scaleLinear()
+				.domain([0, 500])//d3.max(data, function(d) { return +d.cylinders })])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
+				.range([0, width*scale]);
+			svg.append("g")
+				.attr("transform", "translate(0," + height*scale + ")")
+				.call(d3.axisBottom(x));
+
+			// set the parameters for the histogram
+			var histogram = d3.histogram()
+				.value(function(d) { return d.displacement; })   // I need to give the vector of value
+				.domain(x.domain())  // then the domain of the graphic
+				.thresholds(x.ticks(70)); // then the numbers of bins
+
+			// And apply this function to data to get the bins
+			var bins = histogram(data);
+
+			// Y axis: scale and draw:
+			var y = d3.scaleLinear()
+				.range([height*scale, 0]);
+			y.domain([0, d3.max(bins, function(d) { return d.length; })]);   // d3.hist has to be called before the Y axis obviously
+			svg.append("g")
+				.call(d3.axisLeft(y));
+			
+			svg.append("text")
+				.attr("text-anchor", "end")
+				.attr("x", width*scale)
+				.attr("y", height*scale + margin.top + 25)
+				.text("Displacement");
+		
+			// Y axis label:
+			svg.append("text")
+				.attr("text-anchor", "end")
+				.attr("transform", "rotate(-90)")
+				.attr("y", -margin.left+15)
+				.attr("x", -margin.top)
+				.text("Number Of Cars")
+
+			// append the bar rectangles to the svg element
+			svg.selectAll("rect")
+				.data(bins)
+				.enter()
+				.append("rect")
+				.attr("x", -1*((x(1) - x(0))/10)*dotScale)
+				.attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
+				.attr("width", function(d) { return (x(d.x1) - x(d.x0))*dotScale ; })
+				.attr("height", function(d) { return height*scale - y(d.length); })
+				.attr("car-maker", d => extractUniqueFields(d, "maker", " ", (v) => v.replace(/\s+/g, '_')))
+				.attr("car-name", d => extractUniqueFields(d, "name", " ", (v) => v.replace(/\s+/g, '_')))
+				.attr("car-country", d => extractUniqueFields(d, "country", " ", (v) => v.replace(/\s+/g, '_')))
+				.attr("x0", d => d.x0)
+				.style("fill", "#69b3a2")
+				.each(selectable(vSelect, vDeselect, vEnter, vLeave));
+		});
+	}
+
+	function changeScale()
+	{
+		var x = document.getElementById("frmScale");
+		scale = x.elements[0].value;
+		dotScale = x.elements[1].value;
+		console.log("button pressed");
+		drawChart();
+	}
+	
+	drawChart();
+	initVislink("carsDisplacement", "x0");
+
+</script>
+
+
+
+
+
+
+</body>
+
+</html>

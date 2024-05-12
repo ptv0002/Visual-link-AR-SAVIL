@@ -1,0 +1,35 @@
+* {
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+    text-align: center;
+    color: white;
+	background-color: #121212;
+	height: 90%;
+}
+
+h1 {
+    padding-top: 16px;
+    padding-bottom: 8px;
+}
+
+#ping {
+    margin: 4px;
+    padding: 4px;
+    font-size: larger;
+}
+
+#sharedOutput {
+    margin: auto;
+    padding: 8px;
+    width: 90%;
+    height: 90%;
+    background-color: white;
+    color: black;
+
+    text-align: left;
+    overflow: scroll;
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="../common/d3-geomap/d3-geomap.css" rel="stylesheet">
+        <style>
+            body {
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                max-height: 80vh;
+                width: auto;
+            }
+
+            path.unit:hover {
+                stroke: #222;
+                stroke-width: 1px;
+            }
+
+            path.unit.selected {
+                stroke: #222;
+                stroke-width: 1.5px;
+            }
+
+            path.unit.vl-active:not(.selected) {
+                stroke: #333;
+                stroke-width: 1px;
+            }
+
+            .d3-geomap .zoom {
+                transform: none !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="d3-geomap" id="map"></div>
+    </body>
+    <script src="https://unpkg.com/d3@5/dist/d3.min.js"></script>
+    <script src="https://unpkg.com/topojson@3/dist/topojson.min.js"></script>
+    <script src="../common/d3-geomap/d3-geomap.min.js"></script>
+    <script src="./utility.js"></script>
+    <script src="./vislink.js"></script>
+    <script>
+        let countryGroup = {};
+        let csv;
+
+        const format = d => d3.format(',')(Math.floor(d));
+        const extractData = iso3 => {
+            return csv.filter(r => r.country === iso3);
+        };
+
+        function drawMap() {
+            // Set up map
+            const map = d3.choropleth()
+                .geofile('../common/d3-geomap/topojson/world/countries.json')
+                .colors(d3.schemeBlues[9])
+                .column('Models')
+                .format(format)
+                .legend(true)
+                .unitId('iso3')
+                .zoomFactor(1)
+                .postUpdate(() => {
+                    // After render, set up Vislink-related events and attributes
+                    d3.selectAll('path.unit')
+                        .attr("car-maker", d => extractUniqueFields(extractData(d.properties.iso3), "maker", " ", (v) => v.replace(/\s+/g, '_')))
+                        .attr("car-name", d => extractUniqueFields(extractData(d.properties.iso3), "name", " ", (v) => v.replace(/\s+/g, '_')))
+                        .attr("car-country", d => d.properties.iso3)
+                        .each(selectable(vSelect, vDeselect, vEnter, vLeave));
+                });
+    
+            // Read car data
+            d3.csv('./cars2.csv').then(data => {
+                csv = data;
+
+                // Group data by country
+                countryGroup = data.reduce((cts, d) => {
+                    if(!cts.hasOwnProperty(d.country)) cts[d.country] = [];
+                    cts[d.country].push(d);
+                    return cts;
+                }, countryGroup);
+    
+                // Get number of models per country and create map with this data
+                const table = Object.keys(countryGroup).map(k => {
+                    return {
+                        iso3: k,
+                        Models: countryGroup[k].length
+                    };
+                });
+                var selection = d3.select('#map').datum(table);
+                map.draw(selection);
+            });
+        }
+
+        drawMap();
+        initVislink("carsMap", "car-country", ["car-country"]);
+    </script>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <link href="index.css" rel="stylesheet">
+
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <h1>Connected Windows</h1>
+        <p>This device's local address is: <span id="ipDisplay"></span></p>
+        <div>
+            <label for="remoteIp">Remote Address:</label>
+            <input id="remoteIp" type="text">
+            <button id="connectButton">Connect</button>
+        </div>
+        <div>
+            <button id="ping">Ping!</button>
+        </div>
+        <div>
+            <input id="chatInput" type="text">
+            <button id="chatSend">Send</button>
+        </div>
+        <h2>Output</h2>
+        <div id="sharedOutput">
+
+        </div>
+    </body>
+</html>
