@@ -717,12 +717,12 @@ function getObjectObj(id, bounds=null)
 		return null;
 
 	let win = main.objWindows[id];
-	console.log(win);
+//	console.log(win);
 	if(!bounds) bounds = win.object.getBounds();
 
 	let disp = screen.getDisplayMatching(bounds);
 	let dindex = getDisplayIndex(disp.id);
-	console.log(disp);
+//	console.log(disp);
 	return {
 		id: id,
 		obj: objects[id],
