@@ -67,8 +67,11 @@ export class Vislink implements IVislink {
     providedAttributes: string[] = [];
     channel: string = 'vlp';
     tagsEnabled: boolean = true;
+    multiselect: boolean = true;
     tagIndex: TagIndex<Set<Element>> = {};
     remotesByTag: Record<string, TagIndex<string[]>> = {};
+    msMap: Record<string, Set<Element>> = {};
+    multiselections: Set<Element> = new Set<Element>();
 
     constructor(options: VislinkOptions) {
         this.name = options.name;
@@ -91,6 +94,13 @@ export class Vislink implements IVislink {
             target
         }`.replace(/\s+/g, '_');
     }
+
+    localId(target: string | Element) {
+        return ((typeof target !== 'string' &&
+        target.getAttribute?.(this.idAttr)) ||
+        target.toString()).replace(/\s+/g, '_');
+    }
+
     link() {
         console.info('Broadcasting requests');
         var reqs: LinkRequestSearch = {};
@@ -260,6 +270,27 @@ export class Vislink implements IVislink {
             });
         });
 
+        // Add related elements for multiselect
+        if(this.multiselect) {
+            const selected = new Set<Element>();
+            const allElems = [...document.querySelectorAll(`[${this.idAttr}]`)].filter(e => e !== elem);
+            this.subscribedAttributes.forEach((attr) => {
+                listToArray(elem.getAttribute(attr) ?? '').forEach(r => {
+                    // Select all elements in this view with matching attribute value
+                    const elems = allElems.filter(e => e.matches(`[${attr}~="${r}"]`));
+                    elems.forEach(e => {
+                        selected.add(e);
+                    });
+                })
+            });
+            this.msMap[this.localId(elem)] = selected;
+            // Activate all elements found through multiselection
+            selected.forEach((e) => {
+                this.multiselections.add(e);
+                this.sendOrUpdate(e, false);
+            });
+        }
+
         console.log('added-select', this.outRequests);
 
         this.link();
@@ -277,6 +308,23 @@ export class Vislink implements IVislink {
                 if (req[r] && --req[r] <= 0) delete req[r];
             });
         });
+
+        // If this element caused a multiselection, we may need to unregister other elements.
+        const localId = this.localId(elem);
+        if(this.multiselect && localId in this.msMap) {
+            // Get elements from other multiselections
+            let otherSelections = [] as Element[];
+            Object.keys(this.msMap).filter(key => key !== localId).forEach((key) => {
+                otherSelections = [...otherSelections, ...this.msMap[key]];
+            });
+            const otherUnique = new Set(otherSelections);
+            // Unregister all elements that aren't active from other selections or requests
+            [...this.msMap[localId]].filter(e => !otherUnique.has(e) && !this.requestedElements.has(e) && !isSelected(e)).forEach(e => {
+                this.multiselections.delete(e);
+                this.unregister(e, false);
+            });
+            this.requestCleanup();
+        }
 
         console.log('removed-select', this.outRequests);
 
