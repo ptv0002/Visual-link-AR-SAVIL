@@ -29,8 +29,6 @@
 			"height": 970
 		},
 		"relations": [
-			"PS_list_AcademicClubs"
-
 		]
 	},
 	"PS_list_AcademicClubs": {
@@ -41,6 +39,7 @@
 			"height": 970
 		},
 		"relations": [
+			
 		]
 	},
 	"PS_map_FavoriteSubject": {
