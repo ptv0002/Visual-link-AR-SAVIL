@@ -31,6 +31,8 @@ export default interface IVislink {
     providedAttributes: KeyAttribute[];
     /** If true, tag resolution will be activated, which will search attribute values as tags rather than as ID components. */
     tagsEnabled: boolean;
+    /** If true, selections in a view will also activate related elements in the same view. */
+    multiselect: boolean;
     id(target: string | Element, space?: string): string;
     link(): void;
     exitP2P(): void;
