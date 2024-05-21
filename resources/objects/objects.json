@@ -1,26 +1,4 @@
 {
-	"carScatterPlot_MPGvsHorsePower": {
-		"type": "html",
-		"src": "./resources/objects/pages/Jordan's/cars/ScatterPlot_MPGvsHorsePower.html",
-		"size": {
-			"width": 900,
-			"height": 600
-		},
-		"relations": [
-
-		]
-	},
-	"carScatterPlot_MPGvsWeight": {
-		"type": "html",
-		"src": "./resources/objects/pages/Jordan's/cars/ScatterPlot_MPGvsWeight.html",
-		"size": {
-			"width": 900,
-			"height": 600
-		},
-		"relations": [
-
-		]
-	},
 	"PS_flowchart_Courses": {
 		"type": "html",
 		"src": "./resources/objects/pages/study23/web/practice_sample/flowchart_Courses.html",
@@ -68,18 +46,18 @@
 		"type": "html",
 		"src": "./resources/objects/pages/study23/web/A1/barchart_foodItems.html",
 		"size": {
-			"width": 660,
+			"width": 1130,
 			"height": 970
 		},
 		"relations": [
 
 		]
 	},
-	"A1_boxwhisker_foodItems": {
+	"A1_composite_FoodItems": {
 		"type": "html",
-		"src": "./resources/objects/pages/study23/web/A1/boxwhisker_foodItems.html",
+		"src": "./resources/objects/pages/study23/web/A1/composite_FoodItems.html",
 		"size": {
-			"width": 670,
+			"width": 840,
 			"height": 970
 		},
 		"relations": [

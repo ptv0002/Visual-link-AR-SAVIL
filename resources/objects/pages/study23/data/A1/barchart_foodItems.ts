@@ -4,11 +4,11 @@ const BarchartFoodItems: DataModule = {
     name: "barchart_foodItems",
     image: "../../img/A1/1. Barchart_foodItems.png",
     data: [
-        { x: .195, y: .0685, width: 7, height: 2.1, data: { id: "fruit", group_id: "Fruits" } },
-        { x: .12, y: .1135, width: 14, height: 2.1, data: { id: "veggie", group_id: "Vegetables" } },
-        { x: .135, y: .2925, width: 13, height: 2.1, data: { id: "fats", group_id: "Oil" } },
-        { x: .07, y: .4745, width: 19, height: 2.1, data: { id: "potatoes", group_id: "Vegetables" } },
-        { x: .15, y: .585, width: 11.5, height: 2.1, data: { id: "cheese", group_id: "Dairy" } },
+        { x: .436, y: .303, width: 3, height: 1.7, data: { id: "dairy", group_id: "Dairy" } },
+        { x: .056, y: .453, width: 5.8, height: 2.3, data: { id: "olive_oil", group_id: "Oil" } },
+        { x: .048, y: .645, width: 6.8, height: 2.1, data: { id: "tomatoes", group_id: "Vegetables" } },
+        { x: .041, y: .815, width: 4.1, height: 2, data: { id: "citrus", group_id: "Fruits" } },
+        { x: .004, y: .873, width: 2.7, height: 1.8, data: { id: "nuts", group_id: "Nuts_and_Seeds" } },
     ]
 }
 if(!window.dataModules)
