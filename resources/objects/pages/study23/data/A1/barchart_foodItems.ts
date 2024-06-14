@@ -6,7 +6,6 @@ const BarchartFoodItems: DataModule = {
     data: [
         { x: .436, y: .303, width: 3, height: 1.7, data: { id: "dairy", group_id: "Dairy" } },
         { x: .056, y: .453, width: 5.8, height: 2.3, data: { id: "olive_oil", group_id: "Oil" } },
-        { x: .048, y: .645, width: 6.8, height: 2.1, data: { id: "tomatoes", group_id: "Vegetables" } },
         { x: .041, y: .815, width: 4.1, height: 2, data: { id: "citrus", group_id: "Fruits" } },
         { x: .004, y: .873, width: 2.7, height: 1.8, data: { id: "nuts", group_id: "Nuts_and_Seeds" } },
     ]

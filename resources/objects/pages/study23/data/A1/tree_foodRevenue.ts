@@ -10,6 +10,7 @@ const TreeFoodRevenue: DataModule = {
         { x: 0.028, y: .42, width: 18.5, height: 16, data: { id: "banana", group_id: "Fruits" } },
         { x: 0.425, y: .44, width: 6, height: 14.2, data: { id: "orange", group_id: "Fruits" } },
         { x: 0.028, y: .62, width: 17, height: 36.5, data: { id: "potato", group_id: "Vegetables" } },
+        { x: 0.20, y: .834, width: 14.2, height: 15.1, data: { id: "tomato", group_id: "Fruits" } },
         { x: 0.346, y: .723, width: 7, height: 14.5, data: { id: "cabbage", group_id: "Vegetables" } },
     ]
 }
