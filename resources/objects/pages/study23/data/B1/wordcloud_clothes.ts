@@ -7,7 +7,7 @@ const WordcloudClothes: DataModule = {
         { x: .190, y: .376, width: 2.2, height: 31, data: { id: "chow tai fook", group_id: "Chinese" } },
         { x: .324, y: .742, width: 11.2, height: 2.6, data: { id: "lao feng xiang", group_id: "Chinese" } },
         { x: .523, y: .66, width: 1.6, height: 9.3, data: { id: "asics", group_id: "Japanese" } },
-        { x: .585, y: .615, width: 9.2, height: 4.5, data: { id: "uniqlo", group_id: "Japan" } }
+        { x: .585, y: .615, width: 9.2, height: 4.5, data: { id: "uniqlo", group_id: "Japanese" } }
     ]
 }
 if(!window.dataModules)
